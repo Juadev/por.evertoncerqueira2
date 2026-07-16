@@ -1,0 +1,37 @@
+SITE AJUSTADO — @POR.EVERTONCERQUEIRA
+
+O QUE FOI CORRIGIDO
+1. As fotos agora ficam presas dentro dos blocos.
+2. O CSS usa object-fit: cover, então nenhuma foto aumenta o tamanho do bloco.
+3. A seção “01” agora possui um espaço grande para foto, com o número sobre a imagem.
+4. O site continua responsivo no celular.
+
+COMO TROCAR AS FOTOS
+Entre na pasta assets e substitua os arquivos abaixo pelas suas fotos:
+
+- foto-portfolio-1.svg
+- foto-portfolio-2.svg
+- foto-portfolio-3.svg
+- foto-historia.svg
+
+Você pode usar JPG ou PNG. Nesse caso:
+1. Coloque, por exemplo, foto-portfolio-1.jpg na pasta assets.
+2. No index.html, troque:
+   assets/foto-portfolio-1.svg
+   por:
+   assets/foto-portfolio-1.jpg
+
+AJUSTAR O ENQUADRAMENTO
+No style.css, encontre:
+
+.gallery-card img {
+  object-position: center;
+}
+
+Para mostrar mais o topo da foto:
+object-position: center top;
+
+Para a foto da história, altere:
+.story-visual img {
+  object-position: center;
+}
