@@ -31,3 +31,86 @@ const observer=new IntersectionObserver(entries=>{
 
 document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 document.querySelector("#year").textContent=new Date().getFullYear();
+<script>
+    const carrossel = document.querySelector(".carrossel-portfolio");
+    const track = document.querySelector(".carrossel-track");
+    const slides = document.querySelectorAll(".slide-portfolio");
+    const botaoAnterior = document.querySelector(".anterior");
+    const botaoProximo = document.querySelector(".proximo");
+    const indicadoresContainer = document.querySelector(
+        ".carrossel-indicadores"
+    );
+
+    let slideAtual = 0;
+    let intervaloAutomatico;
+
+    slides.forEach((_, indice) => {
+        const indicador = document.createElement("button");
+
+        indicador.setAttribute(
+            "aria-label",
+            `Ir para a foto ${indice + 1}`
+        );
+
+        indicador.addEventListener("click", () => {
+            slideAtual = indice;
+            atualizarCarrossel();
+            reiniciarAutomatico();
+        });
+
+        indicadoresContainer.appendChild(indicador);
+    });
+
+    const indicadores = indicadoresContainer.querySelectorAll("button");
+
+    function atualizarCarrossel() {
+        track.style.transform = `translateX(-${slideAtual * 100}%)`;
+
+        indicadores.forEach((indicador, indice) => {
+            indicador.classList.toggle(
+                "ativo",
+                indice === slideAtual
+            );
+        });
+    }
+
+    function proximoSlide() {
+        slideAtual = (slideAtual + 1) % slides.length;
+        atualizarCarrossel();
+    }
+
+    function slideAnterior() {
+        slideAtual =
+            (slideAtual - 1 + slides.length) % slides.length;
+
+        atualizarCarrossel();
+    }
+
+    function iniciarAutomatico() {
+        intervaloAutomatico = setInterval(proximoSlide, 5000);
+    }
+
+    function reiniciarAutomatico() {
+        clearInterval(intervaloAutomatico);
+        iniciarAutomatico();
+    }
+
+    botaoProximo.addEventListener("click", () => {
+        proximoSlide();
+        reiniciarAutomatico();
+    });
+
+    botaoAnterior.addEventListener("click", () => {
+        slideAnterior();
+        reiniciarAutomatico();
+    });
+
+    carrossel.addEventListener("mouseenter", () => {
+        clearInterval(intervaloAutomatico);
+    });
+
+    carrossel.addEventListener("mouseleave", iniciarAutomatico);
+
+    atualizarCarrossel();
+    iniciarAutomatico();
+</script>
