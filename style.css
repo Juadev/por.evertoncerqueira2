@@ -338,3 +338,8 @@ button{color:inherit;font:inherit}
         object-position: center top;
     }
 }
+/* CORREÇÃO PARA O CONTEÚDO NÃO FICAR INVISÍVEL */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
